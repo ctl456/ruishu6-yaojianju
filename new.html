@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+  <meta name="renderer" content="webkit">
+  <title>国家药品监督管理局数据查询</title>
+  <link rel="shortcut icon" href="https://www.nmpa.gov.cn/wbppimages/favicon.ico">
+  <link rel="stylesheet" href="css/element-ui.css">
+  <link rel="stylesheet" href="css/fonts/iconfont.css">
+  <!-- 判断 PC端 和 移动端 设备展示或者隐藏css 重要 -->
+  <link rel="stylesheet" href="css/display.css">
+  <link rel="stylesheet" href="css/index.css">
+  <link rel="stylesheet" href="css/animate.min.css">
+  <link rel="stylesheet" href="css/introjs.min.css">
+  <style>
+      *[v-cloak] {
+          display: none;
+      }
+    #particles-js {
+      background-size: cover;
+      background-position: 50% 50%;
+      background-repeat: no-repeat;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    .banner {
+      position: relative;
+      height: 414px;
+    }
+
+    .banner .banner-item {
+      width: 100%;
+      //min-width: 1200px;
+      height: 414px;
+      position: absolute;
+    }
+
+    .banner img {
+      display: block;
+      width: 100%;
+    }
+
+    .banner-list {
+      position: absolute;
+      width: 100%;
+      text-align: center;
+      padding-top: 60px;
+    }
+
+    .banner-list ul {
+      width: 1200px;
+      margin: 0 auto;
+    }
+
+    .banner-list li {
+      display: inline-block;
+      width: 25%;
+    }
+
+    .banner-list li a {
+      padding: 15px 10px;
+      position: relative;
+      display: inline-block;
+    }
+
+    .banner-list li a:after {
+      content: "";
+      width: 0%;
+      height: 4px;
+      position: absolute;
+      bottom: 0px;
+      right: 0px;
+      transition: width .3s linear;
+    }
+
+    .banner-list li a:before {
+      content: "";
+      width: 0%;
+      height: 4px;
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      transition: width .3s linear;
+    }
+
+    .banner-list li a.active:after {
+      width: 100%;
+    }
+
+    .banner-list li a.active:before {
+      width: 100%;
+    }
+
+    .banner-list li a.yaopin:after,
+    .banner-list li a.yaopin:before {
+      background: #7ecef4;
+    }
+
+    .banner-list li a.yiliaoqixie:after,
+    .banner-list li a.yiliaoqixie:before {
+      background: #2bd9a6;
+    }
+
+    .banner-list li a.huazhuangpin:after,
+    .banner-list li a.huazhuangpin:before {
+      background: #fe996c;
+    }
+
+    .banner-list li a.qita:after,
+    .banner-list li a.qita:before {
+      background: #cabee2;
+    }
+
+    .banner-list li i {
+      font-weight: bold;
+      font-size: 56px;
+      padding-right: 5px;
+    }
+
+    .banner-list li div.banner-text {
+      display: inline-block;
+    }
+
+    .banner-list li a {
+      text-decoration: none;
+      color: #fff;
+    }
+
+    .banner-list li div.banner-text span.cn {
+      font-size: 30px;
+      display: block;
+      line-height: 30px;
+    }
+
+    .banner-list li div.banner-text span.en {
+      display: block;
+      text-align: left;
+    }
+
+    .banner-search {
+      position: absolute;
+      text-align: center;
+      width: 100%;
+      min-width: 1200px;
+      top: 200px;
+    }
+      /*.announcement {*/
+      /*    position: absolute;*/
+      /*    text-align: center;*/
+      /*    width: 100%;*/
+      /*    min-width: 1200px;*/
+      /*    top: 170px;*/
+      /*}*/
+    .el-autocomplete-suggestion {
+      border-radius: 4px 4px 0 0;
+      border: none;
+    }
+
+    .banner-search-box {
+      display: inline-block;
+      position: relative;
+    }
+
+    .banner-search-box .el-input__inner {
+      border: none;
+      height: 60px;
+      line-height: 60px;
+      font-size: 16px;
+    }
+
+    .banner-search-box .search-history {
+      position: absolute;
+      background: #fff;
+      width: 600px;
+      top: 60px;
+    }
+
+    .banner-search-box .banner-search-text {
+      height: 60px;
+      border: none;
+      background: #fff;
+      width: 600px;
+      padding-left: 30px;
+      font-size: 18px;
+      color: #666;
+      border-radius: 30px 0 0 30px;
+      float: left;
+    }
+
+    .banner-search-box .banner-search-btn {
+      float: left;
+      background: #1a86ff;
+      border: none;
+      height: 60px;
+      border-radius: 0 30px 30px 0;
+      width: 90px;
+      cursor: pointer;
+    }
+
+    .banner-search-box .banner-search-btn i {
+      color: #fff;
+      font-size: 36px;
+    }
+
+    .banner-search-box .banner-search-otherbtn {
+      float: left;
+      height: 40px;
+      line-height: 40px;
+      border: none;
+      text-align: center;
+      padding: 0 30px;
+      border-radius: 20px;
+      font-size: 16px;
+      margin-left: 10px;
+      margin-top: 10px;
+    }
+
+    .banner-search-box .banner-search-gaoji {
+      background: #1a86ff;
+      color: #fff;
+    }
+
+    .banner-search-box .banner-search-keshihua {
+      color: #fff;
+      border: 2px solid #fff;
+      background: none;
+    }
+
+    .banner-hot-search {
+      text-align: left;
+      margin-top: 20px;
+      margin-left: 20px;
+      color: #fff;
+      font-size: 18px;
+    }
+
+    .banner-hot-search a {
+      color: #fff;
+      text-decoration: none;
+      margin-left: 10px;
+    }
+
+    .search-result {
+      width: 1140px;
+      height: auto;
+      margin: 0 auto;
+      min-height: 160px;
+      position: relative;
+      padding-bottom: 20px;
+    }
+
+    .search-result-box {
+      transition: all 1s;
+      -webkit-transition: all 1s;
+      background: #fff;
+      box-shadow: 2px 5px 14px #ccc;
+      border-radius: 10px;
+      width: 100%;
+      min-height: 300px;
+      position: relative;
+      top: -80px;
+      padding-left: 10px;
+      box-sizing: border-box;
+      padding-bottom: 15px;
+    }
+
+    .search-result-box .el-row .el-col {
+      padding-top: 10px;
+      padding-left: 8px;
+    }
+
+    .search-result-box .search-link span {
+      text-decoration: underline;
+    }
+
+    .search-result-box .el-link.el-link--default.is-disabled {
+      color: #606266;
+    }
+
+    .search-result-box .el-link.el-link--default.active {
+      color: #409EFF;
+    }
+
+    .search-result-box .el-link [class*=el-icon-]+span {
+      margin-left: 10px;
+    }
+
+    .search-result-eltag {
+      margin: 10px 10px 0px 0;
+      font-size: 14px;
+      color: #000;
+      cursor: pointer;
+    }
+
+    .search-result-eltag.active {
+      background: #0061c3;
+      color: #fff;
+    }
+
+    .my-drawer {
+      overflow: auto;
+    }
+
+    .search-select {
+      float: left;
+      width: 200px;
+    }
+
+    .search-select .el-input__inner {
+      height: 48px;
+    }
+
+    .search-input {
+      float: left;
+      width: 650px;
+    }
+
+    .search-input .el-input__inner {
+      height: 48px;
+    }
+
+    .search-input .el-input-group__append {
+      width: 30px;
+      font-size: 24px;
+      background: #1a86ff;
+      color: #fff;
+      border-color: #1a86ff;
+    }
+
+    .p10 {
+      padding: 10px;
+    }
+
+    .gaoji-keyword {
+      padding-top: 10px;
+    }
+
+    .gaoji-keyword .el-radio,
+    .gaoji-keyword .el-checkbox {
+      margin-top: 10px;
+    }
+
+    .animated {
+      -webkit-animation-duration: 1s;
+      animation-duration: 1s;
+      -webkit-animation-fill-mode: none;
+      animation-fill-mode: none;
+    }
+
+    /* 监听屏幕大小，当屏幕小于 768px ，则按照以下的样式进行展示该页面。 */
+    @media screen and (max-width:768px) {
+      .banner {
+        height: 140px;
+      }
+
+      .banner .banner-item {
+        height: 140px;
+      }
+
+      .banner img {
+        height: 100%;
+
+      }
+
+      .banner-list {
+        padding-top: 10px;
+      }
+
+      .banner-list ul {
+        width: 100%;
+      }
+
+      .banner-list li {
+        float: left;
+        position: relative;
+      }
+
+      .banner-list li i {
+        font-size: 14px;
+        position: absolute;
+      }
+
+      .banner-list li a {
+        padding-bottom: 23px;
+      }
+
+      .banner-list li a.yiliaoqixie {
+        padding: 15px 10px;
+      }
+
+      .banner-list li div.banner-text span.cn {
+        font-size: 12px;
+        width: 16px;
+        display: inline-block;
+      }
+
+      .banner-list li .yiliaoqixie div.banner-text span.cn {
+        width: 32px;
+      }
+
+      .banner-list li .huazhuangpin div.banner-text span.cn {
+        width: 32px;
+      }
+
+      .banner-list li div.banner-text span.en {
+        font-size: 12px;
+        text-align: center;
+      }
+
+      .banner-list li .yiliaoqixie div.banner-text span.en {
+        font-size: 12px;
+        line-height: 14px;
+      }
+
+      .banner-xs-search {
+        padding: 10px;
+      }
+
+      .banner-xs-search .el-input-group__append {
+        background: #0061c3;
+        color: #fff;
+        border-color: #0061c3;
+      }
+
+      .banner-hot-search {
+        font-size: 14px;
+        color: #333;
+        margin-top: 10px;
+        margin-left: 0px;
+      }
+
+      .banner-hot-search a {
+        color: #333;
+      }
+
+      .search-result {
+        width: 100%;
+        /* padding-bottom: 10px; */
+        min-height: auto;
+      }
+
+      .search-result-box {
+        top: 0;
+        padding: 10px 10px 10px;
+        position: static;
+        height: 94px;
+        overflow: hidden;
+        transition: height .3s linear;
+      }
+
+      .search-result-eltag {
+        margin: 0px 10px 10px 0;
+      }
+
+      .search-result-updown {
+        text-align: center;
+      }
+
+      .search-result-updown .el-button--small,
+      .el-button--small.is-round {
+        padding: 9px 45px;
+      }
+    }
+  </style>
+  
+  <meta content="u6n_QZu2hQ.V.5Mm7nw.PlZ82.xktgBtbY8GQxbyvT_4viFLTGVqWfcACAR.mxgXCFqxgo4bdQye1ftPdJjAcuEMQrbLRNN4" r="m"><!--[if lt IE 9]><script r='m'>document.createElement("section")</script><![endif]--><script type="text/javascript" r='m'>$_ts=window['$_ts'];if(!$_ts)$_ts={};$_ts.nsd=46979;$_ts.cd="qtpqrpAlDqEqDGqFqp93qGqFrSLlDpGFqS9trrLrkqGltSLlDsZmqGqxqa9cqq9CcGEqDGAFrp93qOVxJG7FqP3EqGqFqrLrDpGurAaxrr7cqrLcDGWRDqEqhalFrf93qGqFrrLmDpGFqO9trrVFrS9drrLcDsZkqGqBqrLrDpGFrGahrcqcqrLrha3RDrLmDsZcqGqFqSLqD10cqrLDDGQRDrLlkc1Iqs3SrAVnJRZOenvjVm_uNpOg2GB9NCc1aJtFr5lcwV2FGOutYyhuj3VqrAVorqcac0R8IPVTpFztMYYKFkTbybmv3D2XJUKbRkr9xuTIM5NBMc2.Qbfz7CTTFK9.FvsuMnS.QDzLhImCMD23tn3aZl2FAuSXWkU0YKRlMKguwBNjFmTlxsyFZUR7F12NQK6uhCyaFK7LM5NBMc2.Qbfz7CTTFK2Ftci7pKgZVkwTWMlCpCTnI9y8y00u1mwqxOBlMUYNF1zjwHJBhDzaFCGzZUR7F12NQK6uhCyaFKzRhM0aF0yoQYlgnPT6UUwKWsOCVlflHUmkE_Y3MvrNFnfB_be7tKznFDCuMUYNF1zjwHJBhDzaFCfQ7nlTplRiVoHDVKmb1TWnAtwQFV00JDeaBs2MF6r.Fc6SwbSNtK2SMIWBMvrNFnfB_be7tKznFD6chnEaAkZ63tTlwb29wYpsuszzMbrmIYO8EsN8F6xLMMJzwK2NtCN0ZCZ7F6r.Fc6SwbSNtK2SMIJ8hcQuYomY0klnFOYwp0OWQvwt3DRpQ8ylEOe8FUmzZneXQD2.tDdjMCaNF6xLMMJzwK2NtCN0ZCewt1Qas6oXwTp0Ukrp85zo1DwtHvxi5CfrxueQFvsuMnS.QDzLhImCMD9NFUmzZneXQD2.tDdjMCS3t1VZV5RvYV0aMba6TmzoV6SOMbOV1YfcxuTIM5NBMc2.Qbfz7CTTFK9.FvsuMnS.QDzLhImCMD23tn3gdmSAVKwsslh7MULawke.F8TTFCw9xsyFZUR7F12NQK6uhCyaFK7LM5NBMc2.Qbfz7CTTFK2FtcHQpKyWRbx8sJ2D16a0R9WTy9gyVVTCxOBlMUYNF1zjwHJBhDzaFCGzZUR7F12NQK6uhCyaFKzRhMTqRlA0Y9zv6YpmwKmtt2ONVKpeQYr2E_Y3MvrNFnfB_be7tKznFDCuMUYNF1zjwHJBhDzaFCfQ7nmkM0xaJvk1YORqWux8KH2ypmeKYnNqBs2MF6r.Fc6SwbSNtK2SMIWBMvrNFnfB_be7tKznFD6chnxJHDY1AzNLQsmpH0NW0CyxM9WCWTs5EsN8F6xLMMJzwK2NtCN0ZCZ7F6r.Fc6SwbSNtK2SMIJ8hcwJRoYNT6YuVTYNsUo5FCwXpOezsFRPEOe8FUmzZneXQD2.tDdjMCaNF6xLMMJzwK2NtCN0ZCewt1wiHkHSYVp7YblS8IpEK2x1IbGB6smSxueQFvsuMnS.QDzLhImCMD9NFUmzZneXQD2.tDdjMCS3t1YJwep9AsYwJTp2CDz_HVyjRKhoWTY9xuTIM5NBMc2.Qbfz7CTTFK9.FvsuMnS.QDzLhImCMD23tnRp_uRSF6SHV061YY96Y9S0VzTTFbx9xsyFZUR7F12NQK6uhCyaFK7LM5NBMc2.Qbfz7CTTFK2FtcHisDwC1bL0s4myiVedKoms6cTIWsYCxOBlMUYNF1zjwHJBhDzaFCGzZUR7F12NQK6uhCyaFKzRhMTpw9wDsuaSZuWgwCSbsYUs3bYYADemE_Y3MvrNFnfB_be7tKznFDCuMUYNF1zjwHJBhDzaFCfQ7nmsY9Z5YCkYF1gewOyW3JA_W0LuAOwqBs2MF6r.Fc6SwbSNtK2SMIWBMvrNFnfB_be7tKznFD6chnxKF0fX3Hfhs2pTwOxUCbmowUa6RCB5EsN8F6xLMMJzwK2NtCN0ZCZ7F6r.Fc6SwbSNtK2SMIJ8hcwQI6W0ZbzhR0yjVCvjY0mJVYrfVXfnEOe8FUmzZneXQD2.tDdjMCaNF6xLMMJzwK2NtCN0ZCewt1wPJl.BRsf.HKp.wj2GKlA0RlwydlTrxueQFvsuMnS.QDzLhImCMD9NFUmzZneXQD2.tDdjMCS3t1YfYeNLwumtsTyqdlwIR02Us91B3kxlxuTIM5NBMc2.Qbfz7CTTFK9.FvsuMnS.QDzLhImCMD23tnRv4V2psvl0IVvvK0f0t6Jh8hlnYmmcxsyFZUR7F12NQK6uhCyaFK7LM5NBMc2.Qbfz7CTTFK2FtcHg800eYOJ8MezQFCTCw6AB_lzJVuJqxOBlMUYNF1zjwHJBhDzaFCGzZUR7F12NQK6uhCyaFKzRhMTjA93uWKwWu9NtwC9aHD5zM0TdJlR2E_Y3MvrNFnfB_be7tKznFDCuMUYNF1zjwHJBhDzaFCfQ7nmNUua01vb7ssE.1CynF7rmM9yEADTaBs2MF6r.Fc6SwbSNtK2SMIWBMvrNFnfB_be7tKznFD6chnxBHUefwHrCRVE0JkrUZYp.p2TAVcd8EsN8U2abhXfb3PN9w6AXdvJNtvr03UHQRbyS3oV.MIRGRKzC32Yu6DS93cNO3Khz8vrSYKRC3HxaEP2SwUm9aPeMxnNa3Kia3vrTtbR0FhrCQCr6pDmB_CRntb2XRCsSQDVj3bxasIRGRKzC39fL4oQPtUmTQKscUPS.QDzLhImCMD9NFUmzZneXQD2.tDdjMCS3t1YBFHpmRoYD32J7CYYiFVf7WocvYKY0xuTIM5NBMc2.Qbfz7CTTFK9.FvsuMnS.QDzLhImCMD23tnRzao2hRkY7R6hK16NWpuRWQW9up6x0xsyFZUR7F12NQK6uhCyaFK7LM5NBMc2.Qbfz7CTTFK2FtcHSJkrawUyXsBwLWUSNFcND_laCUYTDxOBlMUYNF1zjwHJBhDzaFCGzZUR7F12NQK6uhCyaFKzRhMT7QKSUV2T65Cpp1URnMKsnV0xqpbe2E_Y3MvrNFnfB_be7tKznFDCuMUYNF1zjwHJBhDzaFCfQ7nm6VDrxAbHThKR9MsxY8Jwjw07ZslRGBs2MF6r.Fc6SwbSNtK2SMIWBMvrNFnfB_be7tKznFD6cIPS.QDzLUxVckbRNRkRnTb2bHOxKp9vo1DmIHbxEVWwaA6anHlLye9w7QleNH6BbYUlu3up2izm2A9RKMbNn.VSyQOyfwokiQKwcW97nQIqg30ynQ0wYCUzl1YxsHCs51lNv1VEe35y7RP76HOrPdk7utCe0HucjVvmfUsyUJBmop176HOrPdk7utCe0HTMZWTYcATr7F5wlsn76HOrPdk7utCe0H04HsuwK1KYOWFyF8czBwkeyTOYt1kwb3UhVVoV5JbRx8WefQbwPF6J3Nkrj3CmdV9M3YYfkFOSOJdwi8vReMCS1CKlXJuauRCtvWcyBwOSwpifWVDy7MOWC5T7XJuauRCtvWcyBwOajW_363C3eJcN.4qWqrAA6rqc.qSmzQUJ0i_QnJuEZWOlnju9gJAVrJOP.3DWerAAnJj7kcOATHuQajkLaJs0oqkKBiO3mmp1M_lwFaa4C99dpqxYBjO9omkXslqKOlofKqqqqqqqqqqqrBeA7xn4sfrETglB1tlmhjUMXjWHMmDDCstuhmLGljUg2qaL6HkQZWtQSWsl0raVava9SWOWTHk8bWOQTrAQlqRZkqqATraVCvsW6In2bRKtu3bT6tKR0F.JPQCGNRvxL7CmfMP22RUKu3K2.tKYNQMJf8OQNRcfPdbl7RbNjtDhBQnSbwvAL3XSThDm9Qnf2ZCZ73KN9tDUa3oGN3KfahIzXRn2GFbGz5bS0tKrd316yMClN3CzvhI2BwP2OFDLz5KSXQ12fF6KuRDpvtKr7M.J9FKWN3ogzeCeatKT6wc66wCWNMDp.hIRzRP27FK0zebTutKS6R16CQDZNMCRChIYPwbANMUp95cejwKE.MvtuFUJjFnzLFH0BMDNPtC9TdPezRoV.FKO4hCT7FczNFX9BMKNftC2X_1ezws3.FUD.hCTTRczNQIN9hDfT3cf746W7FoRXtD4eF1SjRvZLMBf9hDNNR1fXZC37FvmftD4N3PSTRoALQISPQc2T3CEz4CpztUYXRn6BMC9NwKzzQX7BQDzPt6pSZPeawU3.woo.h6rTQUZLQ8SvhoYZt6pgdceSMDW.wUUvh6mbFvqCh8TPhow9FPfudvl7wCrGtoH_QcS6FczCMi2fhowS31fu_CyatUR2Fc67RUGNwbGLQX29hoRnRPfn_DV7wvS0toU5Q1SSRo0LwIfyhom731fTebYbtUmLwvH_MUANQUJPh8z4wc2uwDqz_UrutUJ0Qn6N8CANQbRnh8fb3vVNQD2G76pzQn2aFCIyh6wj3ClCh8fuQn2n3bR776zPFc2dFotu8CSCI1zZMHWB8oYLt6SnZnegIn2etoBCQaqmrAJMxQrxqqmFECW2vawIE1mArqUqxTeTrAVTiRZrJkQmrOVrvOE";if($_ts.lcd)$_ts.lcd();</script><script type="text/javascript" charset="utf-8" src="/fpqQrgG7L6po/15QqdX9S7nDE.294cc83.js" r='m'></script><script type="text/javascript">
+  const style = document.createElement('style');
+  style.textContent = '.introjs-tooltip[data-step="5"] {left: 0px !important;}';
+  
+  document.head.appendChild(style);
+  </script> 
+  
+</head>
+
+<body class="root">
+<!--  <div id="imgDiv" style="position:fixed;right:0px;top:70%;z-index:1;">-->
+<!--    <div>-->
+<!--      <div id="a"-->
+<!--        style="text-align: center;cursor: pointer;position:absolute;left:363px;top:-4px; width:20px;height:20px; color: #fff;">-->
+<!--        <span>x</span>-->
+<!--      </div>-->
+<!--      <a href="search-help.html" target="_blank">-->
+<!--        <img class="el-icon-edit-outline" src="./images/cd780a48368e96ffdaeda207e6a2e91.png" alt="">-->
+<!--      </a>-->
+<!--    </div>-->
+<!--  </div>-->
+  <!-- vue对象 -->
+  <div id="home" style="visibility: hidden" v-cloak>
+    <!-- 头部 -->
+    <header>
+      <my-header></my-header>
+    </header>
+    <!-- 身体 -->
+    <main>
+      <div class="banner">
+        <div v-for="(item, index) in bannerData" :key="index">
+          <transition name="el-fade-in">
+            <div class="banner-item" v-show="index == bannerIndex">
+              <img :src="item.bgImg" alt="">
+            </div>
+          </transition>
+        </div>
+        <div id="particles-js">
+          <canvas class="particles-js-canvas-el"></canvas>
+        </div>
+
+        <!-- 药品、医疗器械、化妆品、其它 四大模块标签页 -->
+        <div class="banner-list" style="z-index: 99999999">
+          <ul data-step="1" data-intro="选择数据分类" data-position="bottom" id="banner">
+            <li v-for="(item, index) in bannerData" :key="index">
+              <a href="javascript:;" :class="item.className" @click="fnBannerNav(index, item)"
+                @mouseover="hoverEvt(index, item)" @mouseout="hoverOutEvt(index, item)">
+                <i :class="item.icon"></i>
+                <div class="banner-text">
+                  <span class="cn">{{item.text}}</span>
+                  <span class="en" style="text-align: center !important;">{{item.en}}</span>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </div>
+<!--   临时添加公告     -->
+<!--        <div class="announcement">-->
+<!--          <span style="color:red;font-weight: bold;font-size: 18px">因国家药监局网络升级，国家药监局政府网站数据查询将于2022年9月3日（星期六）18:00至2022年9月4日（星期日）10:00暂停服务，给您带来的不便，敬请谅解！</span>-->
+<!--        </div>-->
+        <!-- 模块下拉选 以及 搜索框 -->
+        <div class="banner-search hidden-xs-only">
+          <div style="margin: 15px auto 0; width: 950px;">
+            <!-- pc 下拉选模块 -->
+            <el-select data-step="3" data-intro="默认选中的数据库，支持下拉重新选择" class="search-select" v-model="couponSelected"
+              @change="fnSelect" :popper-append-to-body="false" placeholder="请选择">
+              <el-option v-for="(item, index) in searchDbResultArray" :key="item.index" :label="item.itemName"
+                :value="item.itemId">
+              </el-option>
+            </el-select>
+            <!-- pc搜索框 -->
+            <el-input data-step="4" data-intro="输入需要查询的关键词" class="search-input" :placeholder="gjFeildTipTxt"
+              v-model="bannerSearch" ref="searchInput" @keyup.enter.native="fnSearch('')">
+              <el-button data-step="5" data-intro="点击查看查询结果" slot="append" @click="fnSearch('')" icon="el-icon-search">
+              </el-button>
+            </el-input>
+          </div>
+        </div>
+      </div>
+
+      <!-- 公示库展示区 -->
+      <div class="container">
+        <!-- 移动端搜索框 -->
+        <div class="banner-xs-search hidden-sm-and-up">
+<!--          <div>-->
+<!--            <span style="color:red;font-size: 14px">因国家药监局网络升级，国家药监局政府网站数据查询将于2022年9月3日（星期六）18:00至2022年9月4日（星期日）10:00暂停服务，给您带来的不便，敬请谅解！</span>-->
+<!--          </div>-->
+          <el-input :placeholder="gjFeildTipTxt" v-model="bannerSearch" class="input-with-select"
+            @keyup.enter.native="fnSearch('')">
+            <el-button slot="append" class="banner-xs-searchbtn" @click="fnSearch('')" icon="el-icon-search">
+            </el-button>
+          </el-input>
+        </div>
+        <div class="search-result fadeInUp animated">
+          <div class="search-result-box" :style='{"height": searchResultUpDownState?"auto":""}' ref="search_result"
+            data-step="2" data-intro="选择需要查询的数据库" data-position="top">
+            <el-row class="pc-max">
+              <el-col v-for="(item, index) in searchResultArray" :key="index" :span="8">
+                <el-divider direction="vertical"></el-divider>
+                <el-link @click="selectKeyWord(item, index)" icon="el-icon-upload2"
+                  :class="{'active': item.itemId == couponSelected}" :title="item.itemName" :underline=false
+                  v-if="item.itemType=='table'&&item.must_searchKey">{{item.itemName}}</el-link>
+                <el-link @click="selectKeyWord(item, index,'linksearch')" icon="el-icon-s-promotion" :underline=false
+                  class="search-link" :title="item.itemName" v-if="item.itemType=='table'&&!item.must_searchKey">
+                  {{item.itemName}}
+                  <!-- <el-badge value="全部" class="item" type="info"></el-badge> -->
+                </el-link>
+                <el-link @click="selectKeyWord(item, index)" icon="el-icon-link" :underline=false class="search-link"
+                  v-if="item.itemType!='table'" :title="item.itemName">{{item.itemName | ellipsis('15')}}<el-badge
+                    value="链接" class="item" type="primary"></el-badge>
+                </el-link>
+              </el-col>
+            </el-row>
+            <el-row class="phone-sm">
+              <el-col v-for="(item, index) in searchResultArray" :key="index" :span="12">
+                <el-divider direction="vertical"></el-divider>
+                <el-link @click="selectKeyWord(item, index)" icon="el-icon-upload2"
+                  :class="{'active': item.itemId == couponSelected}" :title="item.itemName" :underline=false
+                  v-if="item.itemType=='table'&&item.must_searchKey">{{item.itemName | ellipsis('8')}}</el-link>
+                <el-link @click="selectKeyWord(item, index,'linksearch')" icon="el-icon-s-promotion" :underline=false
+                  class="search-link" :title="item.itemName" v-if="item.itemType=='table'&&!item.must_searchKey">
+                  {{item.itemName | ellipsis('8')}}
+                  <!-- <el-badge value="全部" class="item" type="info"></el-badge> -->
+                </el-link>
+                <el-link @click="selectKeyWord(item, index)" icon="el-icon-link" :underline=false class="search-link"
+                  v-if="item.itemType!='table'" :title="item.itemName">{{item.itemName | ellipsis('8')}}
+                  <!--<el-badge value="链接" class="item" type="primary"></el-badge>-->
+                </el-link>
+              </el-col>
+            </el-row>
+            <br>
+            <el-divider><span style="font-weight: bold;">{{paraName}}</span></el-divider>
+          </div>
+
+          <div class="search-result-updown hidden-sm-and-up">
+            <el-button type="primary" :icon="searchResultUpDownState?'el-icon-arrow-up':'el-icon-arrow-down'"
+              size="small" @click="fnSearchResultUpDown">{{searchResultUpDownState?'收起':'展开'}}</el-button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- 底部 -->
+    <footer>
+      <div style="margin: 0 auto; text-align: center;">
+        <span>
+        温馨提示：如对基础数据信息有疑问，可点击<a href="search-help.html" target="_blank">“常见问题”</a>进行查阅，企业用户可通过基础数据详情页面的“数据反馈”按钮在线反馈。
+      </span>
+      </div>
+      <my-footer></my-footer>
+    </footer>
+
+  </div>
+
+  <script src="js/httpVueLoader.js"></script>
+  <script src="js/polyfill.min.js"></script>
+  <script src="js/jquery.min.js"></script>
+  <script src="js/jquery.cookie.js"></script>
+  <script src="js/vue-2.6.0.js"></script>
+  <script src="js/element-ui.js"></script>
+  <script src="js/intro.min.js"></script>
+  <script src="css/fonts/iconfont.js"></script>
+  <script src="js/md5.js"></script>
+  <script src="js/axios.min.js"></script>
+
+  <script src="js/ajax.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/util.js"></script>
+
+  <script src="js/index/home-index.js?version=v4" id="ie"></script>
+  <script src="js/lizi.js"></script>
+  <script type="text/javascript">
+    /**
+     * 此处代码为弹窗，为防止后续需要，故只做注释
+     */
+    // var xin = true,
+    //   yin = true;
+    // var step = 1;
+    // var delay = 10;
+    // var $obj;
+    // $(function() {
+    //     $obj = $("#imgDiv");
+    //     var time = window.setInterval("move()", delay);
+    //     $obj.mouseover(function() {
+    //         clearInterval(time)
+    //     });
+    //     $obj.mouseout(function() {
+    //         time = window.setInterval("move()", delay)
+    //     });
+    // });
+    //
+    // function move() {
+    //     var left = $obj.offset().left;
+    //     var top = $obj.offset().top;
+    //     var L = T = 0; //左边界和顶部边界
+    //     var R = $(window).width() - $obj.width(); // 右边界
+    //     var B = $(window).height() - $obj.height(); //下边界
+    //     if (left < L) {
+    //         xin = true; // 水平向右移动
+    //     }
+    //     if (left > R) {
+    //         xin = false;
+    //     }
+    //     if (top < T) {
+    //         yin = true;
+    //     }
+    //     if (top > B) {
+    //         yin = false;
+    //     }
+    //     left = left + step * (xin == true ? 1 : -1);
+    //     top = top + step * (yin == true ? 1 : -1);
+    //     // 给div 元素重新定位
+    //     $obj.offset({
+    //         top: top,
+    //         left: left
+    //     })
+    // }
+    // $(function () {
+    //   $("#a").click(function () {
+    //     var b = $("#a").parent();
+    //     $(b).remove();
+    //   })
+    // })
+		//$("#imgDiv").draggable();
+  </script>
+  <script>
+    // (1)、页面所有内容加载完成执行
+    window.onload = function () {
+      document.getElementById("home").style.visibility = "visible";
+    }
+  </script>
+</body>
+
+</html>
